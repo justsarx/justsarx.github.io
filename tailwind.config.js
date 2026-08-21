@@ -9,16 +9,24 @@ export default {
     extend: {
       colors: {
         canvas: {
+          DEFAULT: '#0c0e12',
           light: '#f7f6f2',
           dark: '#0c0e12',
         },
         surface: {
+          DEFAULT: '#12151b',
           light: '#ffffff',
           dark: '#12151b',
         },
         surfaceMuted: {
+          DEFAULT: '#171b23',
           light: '#eeece4',
           dark: '#171b23',
+        },
+        card: {
+          DEFAULT: '#161a22',
+          dark: '#161a22',
+          light: '#ffffff',
         },
         borderBase: {
           light: 'rgba(0, 0, 0, 0.09)',
@@ -28,7 +36,10 @@ export default {
           primary: '#101318',
           muted: '#5c6475',
           subtle: '#8c95a6',
-        }
+        },
+        textMuted: '#8b94a5',
+        textSubtle: '#626b7c',
+        textPrimary: '#f0f3f8',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

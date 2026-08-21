@@ -50,7 +50,7 @@ export const ContactSection: React.FC = () => {
         <div className="reveal-on-scroll grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           {/* Left Column: Direct Inquiries */}
           <div className="lg:col-span-5 space-y-6">
-            <SpotlightCard className="p-8 sm:p-10 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover-lift shadow-sm space-y-6">
+            <SpotlightCard className="p-8 sm:p-10 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover-lift shadow-sm space-y-6">
               <div>
                 <span className="text-xs font-mono text-ink-subtle uppercase tracking-wider block mb-1 font-semibold">
                   Direct Channel
@@ -77,7 +77,7 @@ export const ContactSection: React.FC = () => {
                 </a>
                 <button
                   onClick={handleCopyEmail}
-                  className="px-4 py-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-surfaceMuted-light dark:bg-surfaceMuted hover:bg-black/5 dark:hover:bg-white/10 text-black dark:text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-4 py-3.5 rounded-xl border border-black/10 dark:border-white/10 bg-surfaceMuted-light dark:bg-[#171b23] hover:bg-black/5 dark:hover:bg-white/10 text-black dark:text-white font-mono text-xs transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   {copiedEmail ? <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
                   <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
@@ -106,7 +106,7 @@ export const ContactSection: React.FC = () => {
                 href={PERSONAL_DATA.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
+                className="p-5 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-3">
                   <GithubIcon className="h-5 w-5 text-black dark:text-white" />
@@ -122,7 +122,7 @@ export const ContactSection: React.FC = () => {
                 href={PERSONAL_DATA.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
+                className="p-5 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-3">
                   <LinkedinIcon className="h-5 w-5 text-black dark:text-white" />
@@ -138,7 +138,7 @@ export const ContactSection: React.FC = () => {
 
           {/* Right Column: Contact Dispatch Form */}
           <div className="lg:col-span-7">
-            <SpotlightCard className="p-8 sm:p-10 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover-lift shadow-sm">
+            <SpotlightCard className="p-8 sm:p-10 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover-lift shadow-sm">
               <span className="text-xs font-mono text-ink-subtle uppercase tracking-wider block mb-6 font-semibold">
                 Send a Direct Message
               </span>

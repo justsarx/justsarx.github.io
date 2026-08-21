@@ -26,7 +26,7 @@ export const SkillsGrid: React.FC = () => {
           {SKILL_GROUPS.map((group, idx) => (
             <SpotlightCard
               key={idx}
-              className="p-6 sm:p-8 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs flex flex-col justify-between space-y-6"
+              className="p-6 sm:p-8 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs flex flex-col justify-between space-y-6"
             >
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/10 font-mono text-xs">
@@ -43,7 +43,7 @@ export const SkillsGrid: React.FC = () => {
                 {group.skills.map((skill, sIdx) => (
                   <span
                     key={sIdx}
-                    className="text-xs font-mono px-3 py-1.5 rounded-xl bg-surfaceMuted-light dark:bg-[#0c0e12] border border-black/5 dark:border-white/5 text-black/90 dark:text-slate-300 font-medium hover:border-black/20 dark:hover:border-white/20 transition-colors"
+                    className="text-xs font-mono px-3 py-1.5 rounded-xl bg-surfaceMuted-light dark:bg-[#171b23] border border-black/5 dark:border-white/5 text-black/90 dark:text-slate-300 font-medium hover:border-black/20 dark:hover:border-white/20 transition-colors"
                   >
                     {skill}
                   </span>

@@ -33,7 +33,7 @@ export const TimelineSection: React.FC = () => {
               {EXPERIENCES.map((exp, idx) => (
                 <SpotlightCard
                   key={idx}
-                  className="p-8 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-sm space-y-4"
+                  className="p-8 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-sm space-y-4"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                     <span className="text-emerald-700 dark:text-emerald-400 font-bold">{exp.period}</span>
@@ -61,7 +61,7 @@ export const TimelineSection: React.FC = () => {
                     {exp.technologies.map((tech, tIdx) => (
                       <span
                         key={tIdx}
-                        className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-black/5 dark:bg-surfaceMuted text-black/80 dark:text-slate-400 border border-black/5 dark:border-white/5 font-medium"
+                        className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-black/5 dark:bg-[#171b23] text-black/80 dark:text-slate-400 border border-black/5 dark:border-white/5 font-medium"
                       >
                         {tech}
                       </span>
@@ -82,7 +82,7 @@ export const TimelineSection: React.FC = () => {
               {EDUCATION.map((edu, idx) => (
                 <SpotlightCard
                   key={idx}
-                  className="p-6 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs space-y-2"
+                  className="p-6 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs space-y-2"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono">
                     <span className="text-black dark:text-white font-bold">{edu.period}</span>

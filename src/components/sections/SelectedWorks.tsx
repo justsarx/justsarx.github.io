@@ -29,7 +29,7 @@ export const SelectedWorks: React.FC = () => {
           {PROJECTS.map((project) => (
             <SpotlightCard
               key={project.id}
-              className="reveal-on-scroll p-8 sm:p-12 bg-white dark:bg-surface border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-lg shadow-black/[0.03] dark:shadow-black/40"
+              className="reveal-on-scroll p-8 sm:p-12 bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-lg shadow-black/[0.03] dark:shadow-black/40"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
                 {/* Left Column: Narrative & Technical Implementation */}
@@ -76,7 +76,7 @@ export const SelectedWorks: React.FC = () => {
                     {project.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="text-xs font-mono px-3 py-1 rounded-lg bg-surfaceMuted-light dark:bg-surfaceMuted border border-black/10 dark:border-white/10 text-black/90 dark:text-slate-300 font-medium"
+                        className="text-xs font-mono px-3 py-1 rounded-lg bg-surfaceMuted-light dark:bg-[#171b23] border border-black/10 dark:border-white/10 text-black/90 dark:text-slate-300 font-medium"
                       >
                         {tag}
                       </span>
@@ -101,7 +101,7 @@ export const SelectedWorks: React.FC = () => {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-black/15 dark:border-white/20 bg-surfaceMuted-light dark:bg-surface hover:bg-black/5 dark:hover:bg-surfaceMuted text-black dark:text-white font-mono text-xs transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-2 px-5 py-3 rounded-xl border border-black/15 dark:border-white/20 bg-surfaceMuted-light dark:bg-[#12151b] hover:bg-black/5 dark:hover:bg-[#171b23] text-black dark:text-white font-mono text-xs transition-colors cursor-pointer"
                       >
                         <ExternalLink className="h-4 w-4 text-slate-500" />
                         <span>Project Documentation</span>
@@ -119,7 +119,7 @@ export const SelectedWorks: React.FC = () => {
 
                     <div className="grid grid-cols-2 gap-4">
                       {project.metrics.map((metric, idx) => (
-                        <div key={idx} className="p-4 rounded-xl bg-white dark:bg-surface border border-black/5 dark:border-white/5 shadow-xs">
+                        <div key={idx} className="p-4 rounded-xl bg-white dark:bg-[#12151b] border border-black/5 dark:border-white/5 shadow-xs">
                           <span className="text-[10px] font-mono text-ink-subtle block uppercase">
                             {metric.label}
                           </span>
@@ -131,7 +131,7 @@ export const SelectedWorks: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="p-6 rounded-2xl bg-white dark:bg-surfaceMuted border border-black/10 dark:border-white/10 space-y-2">
+                  <div className="p-6 rounded-2xl bg-white dark:bg-[#171b23] border border-black/10 dark:border-white/10 space-y-2">
                     <span className="text-xs font-mono text-black dark:text-textMuted uppercase tracking-wider block font-bold">
                       Architectural Deliverables
                     </span>
