@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-canvas: #f7f6f2;
+    --text-primary: #101318;
+    --border-color: rgba(0, 0, 0, 0.09);
+  }
+
+  .dark {
+    --bg-canvas: #0c0e12;
+    --text-primary: #d8dde6;
+    --border-color: rgba(255, 255, 255, 0.09);
+  }
+
+  * {
+    border-color: var(--border-color);
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Sleek scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(100, 110, 130, 0.25);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 110, 130, 0.5);
+  }
+}
+
+@layer utilities {
+  .editorial-title {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  .border-editorial {
+    border-color: var(--border-color);
+  }
+
+  .hover-lift {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Safe Scroll Reveals: visible by default so nothing is ever hidden */
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-stagger > * {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Kinetic Architectural Grid background */
+  .architectural-grid {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+  }
+
+  .dark .architectural-grid {
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  }
+}
+
+/* Butter-Smooth Infinite Kinetic Marquee */
+@keyframes infinite-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.kinetic-marquee-track {
+  display: flex !important;
+  width: max-content !important;
+  will-change: transform;
+  animation: infinite-marquee 24s linear infinite !important;
+}
+
+.kinetic-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Shiny Text Shimmer Effect */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shiny {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    #10b981 50%,
+    currentColor 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 3.5s linear infinite;
+}

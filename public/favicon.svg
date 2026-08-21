@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Square Container -->
+  <rect x="8" y="8" width="112" height="112" rx="28" fill="#12151b" stroke="rgba(255, 255, 255, 0.15)" stroke-width="4"/>
+  
+  <!-- Circuit Pin Connectors -->
+  <line x1="64" y1="2" x2="64" y2="10" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="64" y1="118" x2="64" y2="126" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="2" y1="64" x2="10" y2="64" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+  <line x1="118" y1="64" x2="126" y2="64" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Inner Architectural Grid / Core Die -->
+  <rect x="28" y="28" width="72" height="72" rx="14" fill="#181c24" stroke="url(#chipGrad)" stroke-width="3"/>
+
+  <!-- Monogram 'S' & Kernel Pulse Vector -->
+  <path d="M78 46 C78 40 70 38 64 38 C54 38 48 43 48 50 C48 64 80 58 80 74 C80 84 72 88 64 88 C54 88 46 84 46 76" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="7" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+        
+  <!-- Center Micro Kernel Indicator Dot -->
+  <circle cx="90" cy="38" r="4" fill="#10b981"/>
+</svg>
