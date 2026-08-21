@@ -15,9 +15,18 @@ import { useScrollAnimations } from './hooks/useScrollAnimations';
 
 export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
+      if (stored === 'light' || stored === 'dark') return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
+
   const { scrollProgress } = useScrollAnimations();
 
+  // Sync class on document root
   useEffect(() => {
     const root = document.documentElement;
     if (theme === 'dark') {
@@ -29,8 +38,28 @@ export function App() {
     }
   }, [theme]);
 
+  // Listen to live system/browser theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    const handleChange = (e: MediaQueryListEvent) => {
+      const hasManualOverride = localStorage.getItem('theme');
+      // Only auto-switch if user hasn't explicitly clicked a manual override
+      if (!hasManualOverride) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    setTheme(prev => {
+      const next = prev === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', next);
+      return next;
+    });
   };
 
   return (
