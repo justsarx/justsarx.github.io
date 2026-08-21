@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://justsarx.me/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://justsarx.me/og-image.png</image:loc>
+      <image:title>Sarthak — AOSP Developer and Systems Engineer Portfolio</image:title>
+      <image:caption>Systems Engineer specializing in AOSP custom device trees, Linux Kernel 5.10 LTS, and WebGPU local machine learning.</image:caption>
+    </image:image>
+  </url>
+</urlset>

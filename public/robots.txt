@@ -1,0 +1,6 @@
+# robots.txt for https://justsarx.me/
+User-agent: *
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://justsarx.me/sitemap.xml
