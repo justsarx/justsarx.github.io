@@ -11,6 +11,7 @@ import { ResumeModal } from './components/modals/ResumeModal';
 import { CustomCursor } from './components/ui/CustomCursor';
 import { DynamicScrollBackground } from './components/ui/DynamicScrollBackground';
 import { ClickSpark } from './components/reactbits/ClickSpark';
+import { MiniAudioPlayer } from './components/audio/MiniAudioPlayer';
 import { useScrollAnimations } from './hooks/useScrollAnimations';
 
 export function App() {
@@ -72,6 +73,9 @@ export function App() {
 
       {/* Dynamic Scroll-Reactive Architectural Background Canvas */}
       <DynamicScrollBackground />
+
+      {/* Floating Zenless Zone Zero (ZZZ) Soundtrack Media Player */}
+      <MiniAudioPlayer />
 
       {/* Top Editorial Navbar with Scroll Indicator & Theme Switcher */}
       <Navbar
