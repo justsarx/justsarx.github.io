@@ -16,6 +16,7 @@ import { useScrollAnimations } from './hooks/useScrollAnimations';
 
 export function App() {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState<boolean>(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -45,7 +46,6 @@ export function App() {
     
     const handleChange = (e: MediaQueryListEvent) => {
       const hasManualOverride = localStorage.getItem('theme');
-      // Only auto-switch if user hasn't explicitly clicked a manual override
       if (!hasManualOverride) {
         setTheme(e.matches ? 'dark' : 'light');
       }
@@ -64,18 +64,20 @@ export function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#f7f6f2] dark:bg-[#0c0e12] text-[#12151b] dark:text-[#d8dde6] selection:bg-black/10 dark:selection:bg-white/15 transition-colors duration-300">
+    <div className={`relative min-h-screen bg-[#f7f6f2] dark:bg-[#0c0e12] text-[#12151b] dark:text-[#d8dde6] selection:bg-black/10 dark:selection:bg-white/15 transition-colors duration-300 ${
+      isAudioPlaying ? 'page-audio-breathing' : ''
+    }`}>
       {/* Click Spark Particle Burst Effect */}
       <ClickSpark sparkColor="#10b981" sparkSize={10} sparkCount={9} />
 
       {/* Custom Dynamic Systems Pointer Reticle */}
       <CustomCursor />
 
-      {/* Dynamic Scroll-Reactive Architectural Background Canvas */}
-      <DynamicScrollBackground />
+      {/* Dynamic Scroll-Reactive Architectural Background Canvas with audio beats breathing */}
+      <DynamicScrollBackground isPlaying={isAudioPlaying} />
 
       {/* Floating Zenless Zone Zero (ZZZ) Soundtrack Media Player */}
-      <MiniAudioPlayer />
+      <MiniAudioPlayer onPlayingChange={setIsAudioPlaying} />
 
       {/* Top Editorial Navbar with Scroll Indicator & Theme Switcher */}
       <Navbar

@@ -1,53 +1,58 @@
 export interface Track {
   id: string;
+  youtubeId: string;
   title: string;
+  chineseTitle: string;
   artist: string;
   album: string;
   duration: string;
-  src: string;
+  approxDurationSec: number;
   genre: string;
-  bpm: number;
 }
 
 export const ZZZ_TRACKS: Track[] = [
   {
     id: 'zzz-01',
-    title: 'Sixth Street Lounge',
-    artist: 'Zenless Zone Zero OST',
-    album: 'New Eridu Urban Beats',
-    duration: '2:45',
-    src: 'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3',
-    genre: 'Urban Electro-Chill',
-    bpm: 86,
+    youtubeId: '8VA8VDp6yyk',
+    title: '60% Daily Life · Leisure',
+    chineseTitle: '60%的日常·悠闲',
+    artist: 'HOYO-MiX',
+    album: 'Zenless Zone Zero OST',
+    duration: '2:32',
+    approxDurationSec: 152,
+    genre: 'Lo-Fi Chill Hop',
   },
   {
     id: 'zzz-02',
-    title: 'Random Play Cassette',
-    artist: 'Zenless Zone Zero OST',
-    album: 'Video Store Vibes',
-    duration: '2:24',
-    src: 'https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3?filename=chill-abstract-intention-12099.mp3',
-    genre: 'Lo-Fi Tape Beats',
-    bpm: 92,
+    youtubeId: '1DnO5iW_Kyg',
+    title: 'Order Derailment · Night',
+    chineseTitle: '秩序脱轨·黑夜',
+    artist: 'HOYO-MiX',
+    album: 'Zenless Zone Zero OST',
+    duration: '3:05',
+    approxDurationSec: 185,
+    genre: 'Cyberpunk Breakbeat',
   },
   {
     id: 'zzz-03',
-    title: 'Hollow Zero Deep Dive',
-    artist: 'Zenless Zone Zero OST',
-    album: 'Hollow Resonance',
-    duration: '3:10',
-    src: 'https://cdn.pixabay.com/download/audio/2022/11/06/audio_03d9876f2d.mp3?filename=electronic-future-beats-117997.mp3',
-    genre: 'Cyberpunk Synthwave',
-    bpm: 110,
+    youtubeId: 'EXHqylrdm94',
+    title: 'Order Derailment · Day',
+    chineseTitle: '秩序脱轨·白昼',
+    artist: 'HOYO-MiX',
+    album: 'Zenless Zone Zero OST',
+    duration: '2:48',
+    approxDurationSec: 168,
+    genre: 'Groove Electro-Bass',
   },
   {
     id: 'zzz-04',
-    title: 'Ballet Twins Skyline',
-    artist: 'Zenless Zone Zero OST',
-    album: 'Neon District Odyssey',
-    duration: '2:50',
-    src: 'https://cdn.pixabay.com/download/audio/2023/04/10/audio_51cb0cb6aa.mp3?filename=urban-lounge-chillout-146376.mp3',
-    genre: 'Electro-Funk Fusion',
-    bpm: 104,
+    youtubeId: '4-uK65NNWMU',
+    title: 'Endless Construction Day · Day',
+    chineseTitle: '无尽的施工日·白昼',
+    artist: 'HOYO-MiX',
+    album: 'Zenless Zone Zero OST',
+    duration: '2:18',
+    approxDurationSec: 138,
+    genre: 'Urban Electro-Funk',
   },
 ];

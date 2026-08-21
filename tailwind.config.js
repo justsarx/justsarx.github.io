@@ -53,7 +53,7 @@ export default {
         widest: '0.12em',
       },
       animation: {
-        'marquee': 'marquee 25s linear infinite',
+        'marquee': 'marquee 50s linear infinite',
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
       },
       keyframes: {

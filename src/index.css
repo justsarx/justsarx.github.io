@@ -102,7 +102,7 @@
   display: flex !important;
   width: max-content !important;
   will-change: transform;
-  animation: infinite-marquee 24s linear infinite !important;
+  animation: infinite-marquee 50s linear infinite !important;
 }
 
 .kinetic-marquee-track:hover {
@@ -127,4 +127,18 @@
   -webkit-background-clip: text;
   background-clip: text;
   animation: shimmer 3.5s linear infinite;
+}
+
+/* Subtle Organic Page Audio Breathing Effect */
+@keyframes audio-breathe {
+  0%, 100% {
+    box-shadow: inset 0 0 100px rgba(16, 185, 129, 0.015);
+  }
+  50% {
+    box-shadow: inset 0 0 140px rgba(16, 185, 129, 0.045);
+  }
+}
+
+.page-audio-breathing {
+  animation: audio-breathe 3.5s ease-in-out infinite;
 }
