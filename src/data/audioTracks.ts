@@ -1,5 +1,6 @@
 export interface Track {
   id: string;
+  src: string;
   youtubeId: string;
   title: string;
   chineseTitle: string;
@@ -13,6 +14,7 @@ export interface Track {
 export const ZZZ_TRACKS: Track[] = [
   {
     id: 'zzz-01',
+    src: '/audio/zzz_60_daily_life.mp4',
     youtubeId: '8VA8VDp6yyk',
     title: '60% Daily Life · Leisure',
     chineseTitle: '60%的日常·悠闲',
@@ -24,6 +26,7 @@ export const ZZZ_TRACKS: Track[] = [
   },
   {
     id: 'zzz-02',
+    src: '/audio/zzz_order_derailment_night.mp4',
     youtubeId: '1DnO5iW_Kyg',
     title: 'Order Derailment · Night',
     chineseTitle: '秩序脱轨·黑夜',
@@ -35,6 +38,7 @@ export const ZZZ_TRACKS: Track[] = [
   },
   {
     id: 'zzz-03',
+    src: '/audio/zzz_order_derailment_day.mp4',
     youtubeId: 'EXHqylrdm94',
     title: 'Order Derailment · Day',
     chineseTitle: '秩序脱轨·白昼',
@@ -46,6 +50,7 @@ export const ZZZ_TRACKS: Track[] = [
   },
   {
     id: 'zzz-04',
+    src: '/audio/zzz_endless_construction_day.mp4',
     youtubeId: '4-uK65NNWMU',
     title: 'Endless Construction Day · Day',
     chineseTitle: '无尽的施工日·白昼',
