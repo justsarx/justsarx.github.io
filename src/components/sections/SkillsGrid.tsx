@@ -27,7 +27,8 @@ import {
   ChevronLeft,
   ChevronRight,
   LayoutGrid,
-  SlidersHorizontal
+  SlidersHorizontal,
+  ExternalLink
 } from 'lucide-react';
 
 interface InteractiveSkill {
@@ -41,6 +42,7 @@ interface InteractiveSkill {
   glowColor: string;
   description: string;
   stats: { label: string; value: string };
+  officialUrl: string;
   quirkType: 'cpp' | 'git' | 'kernel' | 'django' | 'webgpu' | 'docker' | 'mysql' | 'react' | 'python' | 'ts';
 }
 
@@ -56,6 +58,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(0, 89, 156, 0.25)',
     description: 'Hardware abstraction layers (HAL), pointer arithmetic, RAII, memory management, and high-performance native routines.',
     stats: { label: 'Specialization', value: 'Android HAL & Driver APIs' },
+    officialUrl: 'https://en.cppreference.com/w/',
     quirkType: 'cpp'
   },
   {
@@ -69,6 +72,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(240, 192, 0, 0.25)',
     description: 'Device tree (DTS) authoring, MediaTek Dimensity 7030 kernel bringup, defconfig tuning, and kernel module debugging.',
     stats: { label: 'Kernel Branch', value: '5.10 LTS (manaus)' },
+    officialUrl: 'https://www.kernel.org/',
     quirkType: 'kernel'
   },
   {
@@ -82,6 +86,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(61, 220, 132, 0.25)',
     description: 'Complete device tree creation, SELinux policy engineering, vendor proprietary blob isolation, and CTS-compatible builds.',
     stats: { label: 'Production Device', value: 'Moto Edge 40 Neo' },
+    officialUrl: 'https://source.android.com/',
     quirkType: 'kernel'
   },
   {
@@ -95,6 +100,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(240, 80, 50, 0.25)',
     description: 'Complex rebase workflows, conflict resolution, cherry-picking upstream security patches, and repo manifest orchestration.',
     stats: { label: 'Branching Strategy', value: 'Clean Upstream Rebase' },
+    officialUrl: 'https://git-scm.com/',
     quirkType: 'git'
   },
   {
@@ -108,6 +114,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(0, 229, 153, 0.25)',
     description: 'Hardware-accelerated compute shaders, ONNX quantization, local LLM execution, and client-side privacy-first inference.',
     stats: { label: 'Inference Speed', value: '< 120ms In-Browser' },
+    officialUrl: 'https://www.w3.org/TR/webgpu/',
     quirkType: 'webgpu'
   },
   {
@@ -121,6 +128,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(55, 118, 171, 0.25)',
     description: 'Automated token extraction pipelines, PDF parsing, RESTful backend microservices, and AI scoring algorithms.',
     stats: { label: 'Ecosystem', value: 'PyTorch • Transformers • NumPy' },
+    officialUrl: 'https://www.python.org/',
     quirkType: 'python'
   },
   {
@@ -134,6 +142,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(9, 46, 32, 0.25)',
     description: 'High-throughput Django REST frameworks, ORM optimization, Google Gemini API integration, and JWT authentication.',
     stats: { label: 'API Latency', value: '< 15ms Response' },
+    officialUrl: 'https://www.django-rest-framework.org/',
     quirkType: 'django'
   },
   {
@@ -147,6 +156,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(49, 120, 198, 0.25)',
     description: 'Strictly typed component architectures, Web Audio API integration, custom canvas visualizers, and state synchronization.',
     stats: { label: 'Target', value: 'ESNext • WebGL/WebGPU' },
+    officialUrl: 'https://www.typescriptlang.org/',
     quirkType: 'ts'
   },
   {
@@ -160,6 +170,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(97, 218, 251, 0.25)',
     description: 'Component architecture, micro-interactions, responsive design systems, and hardware-accelerated animations.',
     stats: { label: 'Toolchain', value: 'Vite • Tailwind CSS' },
+    officialUrl: 'https://react.dev/',
     quirkType: 'react'
   },
   {
@@ -173,6 +184,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(36, 150, 237, 0.25)',
     description: 'Reproducible Ubuntu AOSP compilation environments, multi-stage containers, and automated toolchain deployment.',
     stats: { label: 'Build Image', value: 'Ubuntu 22.04 AOSP Env' },
+    officialUrl: 'https://www.docker.com/',
     quirkType: 'docker'
   },
   {
@@ -186,6 +198,7 @@ const FEATURED_SKILLS: InteractiveSkill[] = [
     glowColor: 'rgba(0, 117, 143, 0.25)',
     description: 'Relational data modeling, foreign key integrity, index optimization, query execution plan tuning, and transactions.',
     stats: { label: 'Query Performance', value: 'Optimized B-Tree Indexes' },
+    officialUrl: 'https://www.mysql.com/',
     quirkType: 'mysql'
   }
 ];
@@ -364,24 +377,40 @@ export const SkillsGrid: React.FC = () => {
                 >
                   <div>
                     <div className="flex items-center justify-between pb-3 border-b border-black/10 dark:border-white/10">
-                      <div 
-                        className="p-2 rounded-2xl bg-black/[0.03] dark:bg-[#161b22] border border-black/10 dark:border-white/15 shadow-xs flex-shrink-0"
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-2xl bg-black/[0.03] dark:bg-[#161b22] border border-black/10 dark:border-white/15 shadow-xs flex-shrink-0 hover:scale-105 transition-transform"
                         style={{ boxShadow: `0 0 12px ${skill.glowColor}` }}
+                        title={`Open official ${skill.name} website`}
                       >
                         {skill.icon}
-                      </div>
-                      <span className="text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold uppercase">
-                        {skill.badge}
-                      </span>
+                      </a>
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold uppercase hover:bg-emerald-500/20 transition-colors"
+                      >
+                        <span>{skill.badge}</span>
+                        <ExternalLink className="h-2.5 w-2.5" />
+                      </a>
                     </div>
 
                     <div className="mt-3">
                       <span className="text-[9px] font-mono text-ink-subtle dark:text-slate-400 uppercase tracking-wider block font-semibold">
                         {skill.role}
                       </span>
-                      <h3 className="text-base font-display font-bold text-black dark:text-white mt-0.5">
-                        {skill.name}
-                      </h3>
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-base font-display font-bold text-black dark:text-white mt-0.5 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors group"
+                      >
+                        <span>{skill.name}</span>
+                        <ExternalLink className="h-3 w-3 opacity-60 group-hover:opacity-100 transition-opacity" />
+                      </a>
                       <p className="text-[11px] font-mono text-ink-muted dark:text-slate-300 mt-2 leading-relaxed line-clamp-3">
                         {skill.description}
                       </p>
@@ -444,31 +473,32 @@ export const SkillsGrid: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. MOBILE COMPACT 2-COLUMN GRID (Alternative view) */}
+        {/* 2. MOBILE COMPACT 2-COLUMN GRID (Alternative view with direct landing page links) */}
         <div className={`sm:hidden ${mobileViewMode === 'compact' ? 'grid' : 'hidden'} grid-cols-2 gap-3`}>
           {filteredSkills.map((skill) => (
-            <div
+            <a
               key={skill.id}
+              href={skill.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ borderTop: `3px solid ${skill.accentColor}` }}
-              className="p-3.5 rounded-2xl bg-white dark:bg-[#0e1117] border-x border-b border-black/10 dark:border-white/10 flex flex-col justify-between space-y-2 shadow-xs"
+              className="p-3.5 rounded-2xl bg-white dark:bg-[#0e1117] border-x border-b border-black/10 dark:border-white/10 flex flex-col justify-between space-y-2 shadow-xs group hover:border-emerald-500/50 transition-colors"
             >
               <div className="flex items-center justify-between">
                 <div className="p-1.5 rounded-xl bg-black/[0.03] dark:bg-[#161b22]">
                   {skill.icon}
                 </div>
-                <span className="text-[8px] font-mono px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-bold">
-                  {skill.badge.split(' ')[0]}
-                </span>
+                <ExternalLink className="h-3 w-3 text-slate-400 group-hover:text-emerald-500 transition-colors" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-black dark:text-white truncate mt-1">
+                <h4 className="text-xs font-bold text-black dark:text-white truncate mt-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                   {skill.name}
                 </h4>
                 <p className="text-[9px] font-mono text-ink-subtle dark:text-slate-400 truncate">
                   {skill.role}
                 </p>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 
@@ -489,26 +519,43 @@ export const SkillsGrid: React.FC = () => {
                 >
                   <div>
                     <div className="flex items-center justify-between pb-4 border-b border-black/10 dark:border-white/10">
-                      <div 
-                        className="p-2.5 rounded-2xl bg-black/[0.03] dark:bg-[#161b22] border border-black/10 dark:border-white/15 shadow-sm group-hover:scale-105 transition-transform flex-shrink-0"
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2.5 rounded-2xl bg-black/[0.03] dark:bg-[#161b22] border border-black/10 dark:border-white/15 shadow-sm group-hover:scale-105 transition-transform flex-shrink-0 cursor-pointer block"
                         style={{
                           boxShadow: `0 0 16px ${skill.glowColor}`,
                         }}
+                        title={`Open official ${skill.name} documentation`}
                       >
                         {skill.icon}
-                      </div>
-                      <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wider">
-                        {skill.badge}
-                      </span>
+                      </a>
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 font-bold uppercase tracking-wider hover:bg-emerald-500/20 transition-colors"
+                        title={`Visit ${skill.name} official portal`}
+                      >
+                        <span>{skill.badge}</span>
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
                     </div>
 
                     <div className="mt-4">
                       <span className="text-[10px] font-mono text-ink-subtle dark:text-slate-400 uppercase tracking-wider block font-semibold">
                         {skill.role}
                       </span>
-                      <h3 className="text-lg font-display font-bold text-black dark:text-white mt-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                        {skill.name}
-                      </h3>
+                      <a
+                        href={skill.officialUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-lg font-display font-bold text-black dark:text-white mt-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors"
+                      >
+                        <span>{skill.name}</span>
+                        <ExternalLink className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                      </a>
                       <p className="text-xs font-mono text-ink-muted dark:text-slate-300 mt-2.5 leading-relaxed">
                         {skill.description}
                       </p>
@@ -527,7 +574,10 @@ export const SkillsGrid: React.FC = () => {
                           </span>
                           <button
                             type="button"
-                            onClick={() => setCppCompiled(!cppCompiled)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setCppCompiled(!cppCompiled);
+                            }}
                             className="text-[9px] px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500 hover:text-black transition-colors font-bold cursor-pointer"
                           >
                             {cppCompiled ? 'Reset' : 'Run Clang'}
@@ -571,7 +621,10 @@ export const SkillsGrid: React.FC = () => {
                           </span>
                           <button
                             type="button"
-                            onClick={() => setGitStep((prev) => (prev + 1) % 3)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setGitStep((prev) => (prev + 1) % 3);
+                            }}
                             className="text-[9px] px-1.5 py-0.5 rounded-md bg-orange-500/20 text-orange-700 dark:text-orange-400 hover:bg-orange-500 hover:text-white transition-colors font-bold cursor-pointer"
                           >
                             Step: 0{gitStep + 1}
@@ -622,7 +675,10 @@ export const SkillsGrid: React.FC = () => {
                           </span>
                           <button
                             type="button"
-                            onClick={() => setPyExecuted(!pyExecuted)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setPyExecuted(!pyExecuted);
+                            }}
                             className="text-[9px] px-1.5 py-0.5 rounded-md bg-yellow-500/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500 hover:text-black transition-colors font-bold cursor-pointer"
                           >
                             {pyExecuted ? 'Parsed' : 'Execute'}
@@ -641,7 +697,10 @@ export const SkillsGrid: React.FC = () => {
                           <span className="font-bold text-black dark:text-white">POST /api/v1/eval</span>
                           <button
                             type="button"
-                            onClick={() => setDjangoResponse(!djangoResponse)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setDjangoResponse(!djangoResponse);
+                            }}
                             className="text-[9px] px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500 hover:text-black transition-colors font-bold cursor-pointer"
                           >
                             {djangoResponse ? '200 OK' : 'Send'}
@@ -711,7 +770,10 @@ export const SkillsGrid: React.FC = () => {
                           </span>
                           <button
                             type="button"
-                            onClick={() => setSqlExplained(!sqlExplained)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSqlExplained(!sqlExplained);
+                            }}
                             className="text-[9px] px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-700 dark:text-amber-400 hover:bg-amber-500 hover:text-black transition-colors font-bold cursor-pointer"
                           >
                             {sqlExplained ? 'Optimized' : 'Analyze'}
