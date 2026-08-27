@@ -99,3 +99,41 @@ export const MySqlLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
     <path d="M21.6 46.6C12.7 54.3 7 65.5 7 78.1c0 23.3 19.3 42.6 44.5 45.4-8.8-11.2-14.2-25.4-14.2-40.8 0-13 3.8-25.1 10.3-35.3-8.8-.7-17.7-.8-26-.8z" fill="#F29111"/>
   </svg>
 );
+
+export const LeetCodeLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
+  <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M85.3 93.8c-2.4 2.4-5.6 3.7-8.9 3.7H38.7c-7 0-12.6-5.6-12.6-12.6V43.1c0-7 5.6-12.6 12.6-12.6h37.7c3.4 0 6.5 1.3 8.9 3.7 4.9 4.9 4.9 12.9 0 17.8L61.6 75.7c-4.9 4.9-4.9 12.9 0 17.8 4.9 5 12.9 5 17.8 0l5.9-5.9c3.3-3.3 8.6-3.3 11.9 0 3.3 3.3 3.3 8.6 0 11.9l-11.9 11.9-0.001-7.6z" fill="#FFA116"/>
+    <path d="M96.7 64c0-4.6-3.8-8.4-8.4-8.4H47.1c-4.6 0-8.4 3.8-8.4 8.4s3.8 8.4 8.4 8.4h41.2c4.6 0 8.4-3.8 8.4-8.4z" fill="#B3B3B3"/>
+  </svg>
+);
+
+export const CodeChefLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
+  <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" rx="28" fill="#5B4638"/>
+    <path d="M64 24c-16.6 0-30 13.4-30 30 0 5.2 1.3 10.1 3.6 14.4-6.8 4.6-11.6 12.3-11.6 21.6 0 14.4 11.6 26 26 26h24c14.4 0 26-11.6 26-26 0-9.3-4.8-17-11.6-21.6 2.3-4.3 3.6-9.2 3.6-14.4 0-16.6-13.4-30-30-30z" fill="#fff"/>
+    <circle cx="50" cy="56" r="6" fill="#5B4638"/>
+    <circle cx="78" cy="56" r="6" fill="#5B4638"/>
+    <path d="M50 76c4 4 24 4 28 0" stroke="#5B4638" strokeWidth="5" strokeLinecap="round"/>
+  </svg>
+);
+
+export const AtCoderLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
+  <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" rx="28" fill="#231815"/>
+    <path d="M64 22L100 43V85L64 106L28 85V43L64 22Z" stroke="#00AEF0" strokeWidth="8" strokeLinejoin="round"/>
+    <path d="M64 42L82 52.5V73.5L64 84L46 73.5V52.5L64 42Z" fill="#00AEF0"/>
+  </svg>
+);
+
+export const LinkedInLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
+  <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="128" height="128" rx="28" fill="#0A66C2"/>
+    <path d="M37.5 48.5H23.5V99.5H37.5V48.5ZM30.5 28.5C26 28.5 22.5 32 22.5 36.5C22.5 41 26 44.5 30.5 44.5C35 44.5 38.5 41 38.5 36.5C38.5 32 35 28.5 30.5 28.5ZM104.5 73C104.5 60 97.5 53.5 87.5 53.5C79.5 53.5 76 58 74 61V48.5H60V99.5H74V74.5C74 68 75.5 61.5 83.5 61.5C91.5 61.5 91.5 69 91.5 75V99.5H105.5L104.5 73Z" fill="#fff"/>
+  </svg>
+);
+
+export const GitHubLogo: React.FC<LogoProps> = ({ className = "h-8 w-8" }) => (
+  <svg viewBox="0 0 128 128" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" clipRule="evenodd" d="M64 8C33.1 8 8 33.1 8 64c0 24.7 16 45.7 38.2 53.1 2.8.5 3.8-1.2 3.8-2.7 0-1.3-.1-5.7-.1-10.4-15.6 3.4-18.9-6.6-18.9-6.6-2.5-6.5-6.2-8.2-6.2-8.2-5.1-3.5.4-3.4.4-3.4 5.6.4 8.6 5.8 8.6 5.8 5 8.6 13.1 6.1 16.3 4.7.5-3.6 2-6.1 3.6-7.5-12.4-1.4-25.5-6.2-25.5-27.7 0-6.1 2.2-11.1 5.7-15-0.6-1.4-2.5-7.1.5-14.8 0 0 4.7-1.5 15.4 5.7 4.5-1.3 9.3-1.9 14.1-1.9 4.8 0 9.6.6 14.1 1.9 10.7-7.3 15.4-5.7 15.4-5.7 3 7.7 1.1 13.4.6 14.8 3.6 3.9 5.7 8.9 5.7 15 0 21.6-13.1 26.3-25.6 27.6 2 1.7 3.9 5.2 3.9 10.5 0 7.6-.1 13.7-.1 15.6 0 1.5 1 3.3 3.9 2.7C104 109.7 120 88.7 120 64c0-30.9-25.1-56-56-56z" fill="currentColor"/>
+  </svg>
+);

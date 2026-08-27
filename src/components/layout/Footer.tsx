@@ -1,7 +1,7 @@
 import React from 'react';
 import { PERSONAL_DATA } from '../../data/portfolioData';
-import { GithubIcon, LinkedinIcon } from '../icons/SocialIcons';
 import { ArrowUp, Globe } from 'lucide-react';
+import { GitHubLogo, LinkedInLogo, LeetCodeLogo, CodeChefLogo, AtCoderLogo } from '../ui/SkillLogos';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -21,14 +21,14 @@ export const Footer: React.FC = () => {
             </span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <a
               href={PERSONAL_DATA.github}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 font-semibold"
             >
-              <GithubIcon className="h-3.5 w-3.5" />
+              <GitHubLogo className="h-3.5 w-3.5" />
               <span>GitHub</span>
             </a>
             <a
@@ -37,8 +37,35 @@ export const Footer: React.FC = () => {
               rel="noopener noreferrer"
               className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 font-semibold"
             >
-              <LinkedinIcon className="h-3.5 w-3.5" />
+              <LinkedInLogo className="h-3.5 w-3.5" />
               <span>LinkedIn</span>
+            </a>
+            <a
+              href="https://leetcode.com/u/justsarx/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 font-semibold"
+            >
+              <LeetCodeLogo className="h-3.5 w-3.5" />
+              <span>LeetCode</span>
+            </a>
+            <a
+              href="https://www.codechef.com/users/justsarx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 font-semibold"
+            >
+              <CodeChefLogo className="h-3.5 w-3.5" />
+              <span>CodeChef</span>
+            </a>
+            <a
+              href="https://atcoder.jp/users/justsarx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-black dark:hover:text-white transition-colors flex items-center gap-1.5 font-semibold"
+            >
+              <AtCoderLogo className="h-3.5 w-3.5" />
+              <span>AtCoder</span>
             </a>
             <a
               href={PERSONAL_DATA.website}

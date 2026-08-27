@@ -96,6 +96,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <a href="#skills" className="hover:text-black dark:hover:text-white transition-colors">
                   Skills
                 </a>
+                <a href="#telemetry" className="hover:text-black dark:hover:text-white transition-colors">
+                  Telemetry
+                </a>
                 <a href="#contact" className="hover:text-black dark:hover:text-white transition-colors">
                   Contact
                 </a>

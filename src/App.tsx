@@ -5,6 +5,7 @@ import { SelectedWorks } from './components/sections/SelectedWorks';
 import { SystemsArchitecture } from './components/sections/SystemsArchitecture';
 import { TimelineSection } from './components/sections/TimelineSection';
 import { SkillsGrid } from './components/sections/SkillsGrid';
+import { DeveloperTelemetry } from './components/sections/DeveloperTelemetry';
 import { ContactSection } from './components/sections/ContactSection';
 import { Footer } from './components/layout/Footer';
 import { ResumeModal } from './components/modals/ResumeModal';
@@ -94,6 +95,7 @@ export function App() {
         <SystemsArchitecture />
         <TimelineSection />
         <SkillsGrid />
+        <DeveloperTelemetry />
         <ContactSection />
       </main>
 

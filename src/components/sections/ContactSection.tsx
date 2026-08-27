@@ -101,37 +101,69 @@ export const ContactSection: React.FC = () => {
             </SpotlightCard>
 
             {/* Social Links */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <a
                 href={PERSONAL_DATA.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
+                className="p-4 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover-lift shadow-xs transition-all flex items-center justify-between group"
               >
-                <div className="flex items-center gap-3">
-                  <GithubIcon className="h-5 w-5 text-black dark:text-white" />
+                <div className="flex items-center gap-2.5">
+                  <GithubIcon className="h-4 w-4 text-black dark:text-white" />
                   <div>
                     <span className="text-xs font-bold text-black dark:text-white block">GitHub</span>
-                    <span className="text-[11px] font-mono text-ink-subtle">@justsarx</span>
+                    <span className="text-[10px] font-mono text-ink-subtle">@justsarx</span>
                   </div>
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-ink-subtle group-hover:text-black dark:group-hover:text-white transition-colors" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-ink-subtle group-hover:text-emerald-500 transition-colors" />
               </a>
 
               <a
                 href={PERSONAL_DATA.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-5 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-black/25 dark:hover:border-white/25 hover-lift shadow-xs transition-all flex items-center justify-between group"
+                className="p-4 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover-lift shadow-xs transition-all flex items-center justify-between group"
               >
-                <div className="flex items-center gap-3">
-                  <LinkedinIcon className="h-5 w-5 text-black dark:text-white" />
+                <div className="flex items-center gap-2.5">
+                  <LinkedinIcon className="h-4 w-4 text-black dark:text-white" />
                   <div>
                     <span className="text-xs font-bold text-black dark:text-white block">LinkedIn</span>
-                    <span className="text-[11px] font-mono text-ink-subtle">justsarx</span>
+                    <span className="text-[10px] font-mono text-ink-subtle">@justsarx</span>
                   </div>
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-ink-subtle group-hover:text-black dark:group-hover:text-white transition-colors" />
+                <ArrowUpRight className="h-3.5 w-3.5 text-ink-subtle group-hover:text-emerald-500 transition-colors" />
+              </a>
+
+              <a
+                href="https://leetcode.com/u/justsarx/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover-lift shadow-xs transition-all flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-bold text-amber-500">LC</span>
+                  <div>
+                    <span className="text-xs font-bold text-black dark:text-white block">LeetCode</span>
+                    <span className="text-[10px] font-mono text-ink-subtle">@justsarx</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="h-3.5 w-3.5 text-ink-subtle group-hover:text-emerald-500 transition-colors" />
+              </a>
+
+              <a
+                href="https://www.codechef.com/users/justsarx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-2xl bg-white dark:bg-[#12151b] border border-black/10 dark:border-white/10 hover:border-emerald-500/50 dark:hover:border-emerald-500/50 hover-lift shadow-xs transition-all flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-bold text-[#8C5B3F]">CC</span>
+                  <div>
+                    <span className="text-xs font-bold text-black dark:text-white block">CodeChef</span>
+                    <span className="text-[10px] font-mono text-ink-subtle">@justsarx</span>
+                  </div>
+                </div>
+                <ArrowUpRight className="h-3.5 w-3.5 text-ink-subtle group-hover:text-emerald-500 transition-colors" />
               </a>
             </div>
           </div>

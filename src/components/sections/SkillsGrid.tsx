@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   CppLogo, 
   LinuxLogo, 
@@ -15,7 +15,11 @@ import {
 import { SpotlightCard } from '../reactbits/SpotlightCard';
 import { 
   Search,
-  ExternalLink
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+  SlidersHorizontal,
+  LayoutGrid
 } from 'lucide-react';
 
 interface CleanSkill {
@@ -157,6 +161,9 @@ const CLEAN_SKILLS: CleanSkill[] = [
 export const SkillsGrid: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'all' | 'systems' | 'ai' | 'backend' | 'devops'>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [mobileViewMode, setMobileViewMode] = useState<'carousel' | 'compact'>('carousel');
+  const [activeCarouselIdx, setActiveCarouselIdx] = useState<number>(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const filteredSkills = CLEAN_SKILLS.filter(skill => {
     const matchesTab = activeTab === 'all' || skill.category === activeTab;
@@ -173,10 +180,33 @@ export const SkillsGrid: React.FC = () => {
 
     const savedScrollY = window.scrollY;
     setActiveTab(tab);
+    setActiveCarouselIdx(0);
+
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({ left: 0, behavior: 'instant' as ScrollBehavior });
+    }
 
     requestAnimationFrame(() => {
       window.scrollTo({ top: savedScrollY, behavior: 'instant' as ScrollBehavior });
     });
+  };
+
+  const scrollCarousel = (direction: 'left' | 'right') => {
+    if (!carouselRef.current) return;
+    const scrollAmount = 280;
+    const newScrollLeft = direction === 'left' 
+      ? carouselRef.current.scrollLeft - scrollAmount 
+      : carouselRef.current.scrollLeft + scrollAmount;
+    
+    carouselRef.current.scrollTo({ left: newScrollLeft, behavior: 'smooth' });
+  };
+
+  const handleCarouselScroll = () => {
+    if (!carouselRef.current) return;
+    const scrollLeft = carouselRef.current.scrollLeft;
+    const itemWidth = 280;
+    const newIdx = Math.round(scrollLeft / itemWidth);
+    setActiveCarouselIdx(Math.max(0, Math.min(filteredSkills.length - 1, newIdx)));
   };
 
   return (
@@ -203,7 +233,7 @@ export const SkillsGrid: React.FC = () => {
           </p>
         </div>
 
-        {/* Filter Controls & Search */}
+        {/* Filter Controls, Search & Mobile View Switcher */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 sm:mb-10 pb-4 border-b border-black/5 dark:border-white/5">
           {/* Category Tabs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 no-scrollbar font-mono text-xs">
@@ -229,21 +259,186 @@ export const SkillsGrid: React.FC = () => {
             ))}
           </div>
 
-          {/* Search input */}
-          <div className="relative max-w-xs w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Search technologies or tags..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-xs font-mono rounded-xl bg-white/70 dark:bg-[#12151b]/80 border border-black/10 dark:border-white/10 text-black dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-emerald-500 transition-colors"
-            />
+          {/* Search & Mobile View Toggle */}
+          <div className="flex items-center gap-2">
+            <div className="relative flex-1 sm:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-400" />
+              <input
+                type="text"
+                placeholder="Search technologies..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-9 pr-4 py-2 text-xs font-mono rounded-xl bg-white/70 dark:bg-[#12151b]/80 border border-black/10 dark:border-white/10 text-black dark:text-white placeholder:text-slate-400 focus:outline-hidden focus:border-emerald-500 transition-colors"
+              />
+            </div>
+
+            {/* Mobile Carousel vs Compact Switcher */}
+            <div className="flex sm:hidden items-center border border-black/10 dark:border-white/10 rounded-xl p-0.5 bg-white/70 dark:bg-[#12151b]/80">
+              <button
+                type="button"
+                onClick={() => setMobileViewMode('carousel')}
+                aria-label="Swipeable Carousel View"
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  mobileViewMode === 'carousel'
+                    ? 'bg-black text-white dark:bg-emerald-500 dark:text-black font-bold'
+                    : 'text-slate-500 dark:text-slate-400'
+                }`}
+              >
+                <SlidersHorizontal className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileViewMode('compact')}
+                aria-label="Compact Grid View"
+                className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
+                  mobileViewMode === 'compact'
+                    ? 'bg-black text-white dark:bg-emerald-500 dark:text-black font-bold'
+                    : 'text-slate-500 dark:text-slate-400'
+                }`}
+              >
+                <LayoutGrid className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Minimalist Bento Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {/* 1. MOBILE VIEW: Horizontal Snap Swipe Reel (Prevents Long Vertical Scroll) */}
+        <div className={`sm:hidden ${mobileViewMode === 'carousel' ? 'block' : 'hidden'}`}>
+          <div
+            ref={carouselRef}
+            onScroll={handleCarouselScroll}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 pt-1 no-scrollbar -mx-4 px-4"
+          >
+            {filteredSkills.map((skill) => (
+              <div
+                key={skill.id}
+                className="w-[82vw] max-w-[290px] shrink-0 snap-center"
+              >
+                <a
+                  href={skill.officialUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group h-full outline-hidden"
+                  title={`Open official ${skill.name} documentation`}
+                >
+                  <SpotlightCard
+                    style={{ borderTop: `3px solid ${skill.accentColor}` }}
+                    className="p-5 bg-white dark:bg-[#0e1117] border-x border-b border-black/10 dark:border-white/10 hover-lift shadow-xs flex flex-col justify-between space-y-4 rounded-3xl h-full"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
+                        <div 
+                          className="p-2 rounded-2xl bg-black/[0.03] dark:bg-[#161b22] border border-black/10 dark:border-white/15 shadow-xs flex-shrink-0"
+                          style={{ boxShadow: `0 0 12px ${skill.glowColor}` }}
+                        >
+                          {skill.icon}
+                        </div>
+                        <div className="flex items-center gap-1 text-slate-400 dark:text-slate-500">
+                          <span className="text-[9px] font-mono font-bold tracking-wider uppercase">Docs</span>
+                          <ExternalLink className="h-3 w-3" />
+                        </div>
+                      </div>
+
+                      <div className="mt-3">
+                        <span className="text-[9px] font-mono text-ink-subtle dark:text-slate-400 uppercase tracking-wider block font-semibold">
+                          {skill.role}
+                        </span>
+                        <h3 className="text-base font-display font-bold text-black dark:text-white mt-0.5">
+                          {skill.name}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1.5 pt-2 border-t border-black/5 dark:border-white/5 font-mono text-[9px]">
+                      {skill.chips.map((chip, cIdx) => (
+                        <span
+                          key={cIdx}
+                          className="px-2 py-0.5 rounded-lg bg-black/[0.04] dark:bg-[#161b22] text-slate-700 dark:text-slate-300 font-medium"
+                        >
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+                  </SpotlightCard>
+                </a>
+              </div>
+            ))}
+          </div>
+
+          {/* Minimal Dot Indicators & Swipe Arrows */}
+          <div className="flex items-center justify-between mt-2 px-1 font-mono text-xs">
+            <div className="flex items-center gap-1.5">
+              {filteredSkills.map((_, dotIdx) => (
+                <button
+                  key={dotIdx}
+                  type="button"
+                  onClick={() => {
+                    if (carouselRef.current) {
+                      carouselRef.current.scrollTo({ left: dotIdx * 280, behavior: 'smooth' });
+                    }
+                  }}
+                  aria-label={`Go to skill slide ${dotIdx + 1}`}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeCarouselIdx === dotIdx
+                      ? 'w-5 bg-emerald-500'
+                      : 'w-1.5 bg-black/20 dark:bg-white/20'
+                  }`}
+                />
+              ))}
+            </div>
+
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => scrollCarousel('left')}
+                aria-label="Previous skill"
+                className="p-1.5 rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 cursor-pointer"
+              >
+                <ChevronLeft className="h-3.5 w-3.5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollCarousel('right')}
+                aria-label="Next skill"
+                className="p-1.5 rounded-lg border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 text-slate-600 dark:text-slate-300 cursor-pointer"
+              >
+                <ChevronRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. MOBILE VIEW: Alternative Compact 2-Column Grid */}
+        <div className={`sm:hidden ${mobileViewMode === 'compact' ? 'grid' : 'hidden'} grid-cols-2 gap-3`}>
+          {filteredSkills.map((skill) => (
+            <a
+              key={skill.id}
+              href={skill.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ borderTop: `3px solid ${skill.accentColor}` }}
+              className="p-3.5 rounded-2xl bg-white dark:bg-[#0e1117] border-x border-b border-black/10 dark:border-white/10 flex flex-col justify-between space-y-2 shadow-xs group hover:border-emerald-500/50 transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <div className="p-1.5 rounded-xl bg-black/[0.03] dark:bg-[#161b22]">
+                  {skill.icon}
+                </div>
+                <ExternalLink className="h-3 w-3 text-slate-400 group-hover:text-emerald-500 transition-colors" />
+              </div>
+              <div>
+                <h4 className="text-xs font-bold text-black dark:text-white truncate mt-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  {skill.name}
+                </h4>
+                <p className="text-[9px] font-mono text-ink-subtle dark:text-slate-400 truncate">
+                  {skill.role}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* 3. TABLET & DESKTOP MULTI-COLUMN BENTO GRID */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 min-h-[450px]">
           {filteredSkills.map((skill) => (
             <a
               key={skill.id}
