@@ -42,17 +42,11 @@ class AudioManager {
     if (typeof window !== 'undefined') {
       this.initAudioElement();
       this.setupGlobalUnlock();
-
-      // Immediate attempt on cold load
-      setTimeout(() => {
-        this.play().catch(() => {});
-      }, 100);
     }
   }
 
   private initAudioElement() {
     this.audio = new Audio();
-    this.audio.crossOrigin = 'anonymous';
     this.audio.preload = 'auto';
     this.audio.volume = this.volume;
     this.audio.src = ZZZ_TRACKS[this.currentTrackIdx].src;
@@ -60,16 +54,6 @@ class AudioManager {
     this.audio.addEventListener('loadedmetadata', () => {
       this.isReady = true;
       this.notifyListeners();
-      // Try autoplay when metadata is ready
-      if (!this.isPlaying) {
-        this.play().catch(() => {});
-      }
-    });
-
-    this.audio.addEventListener('canplay', () => {
-      if (!this.isPlaying) {
-        this.play().catch(() => {});
-      }
     });
 
     this.audio.addEventListener('play', () => {
@@ -124,11 +108,13 @@ class AudioManager {
   }
 
   private setupGlobalUnlock() {
-    const triggerAutoUnlock = async () => {
-      if (this.isPlaying) {
-        cleanup();
-        return;
-      }
+    // Only listen to valid user gesture activation events recognized by browser autoplay policies
+    const userGestureEvents = ['pointerdown', 'click', 'keydown', 'touchend'];
+
+    const handleUserGesture = async () => {
+      cleanup();
+
+      this.initWebAudio();
 
       if (this.audioCtx && this.audioCtx.state === 'suspended') {
         try {
@@ -136,38 +122,21 @@ class AudioManager {
         } catch {}
       }
 
-      if (this.audio) {
+      if (this.audio && !this.isPlaying) {
         try {
-          await this.play();
-          cleanup();
-        } catch {
-          // Keep listeners active until successful interaction
-        }
+          await this.audio.play();
+        } catch {}
       }
     };
 
-    const events = [
-      'pointerdown',
-      'touchstart',
-      'touchend',
-      'mousedown',
-      'mouseup',
-      'click',
-      'scroll',
-      'wheel',
-      'mousemove',
-      'keydown',
-      'focus',
-    ];
-
     const cleanup = () => {
-      events.forEach((ev) => {
-        window.removeEventListener(ev, triggerAutoUnlock);
+      userGestureEvents.forEach((ev) => {
+        window.removeEventListener(ev, handleUserGesture);
       });
     };
 
-    events.forEach((ev) => {
-      window.addEventListener(ev, triggerAutoUnlock, { passive: true });
+    userGestureEvents.forEach((ev) => {
+      window.addEventListener(ev, handleUserGesture, { passive: true, once: true });
     });
   }
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   GitHubLogo, 
   LeetCodeLogo, 
@@ -158,37 +158,16 @@ const FEATURED_REPOS: GitHubRepoData[] = [
 ];
 
 export const DeveloperTelemetry: React.FC = () => {
-  const [githubStats, setGithubStats] = useState<{
-    publicRepos: number;
-    followers: number;
-    avatarUrl: string;
-  }>({
+  const githubStats = {
     publicRepos: 18,
     followers: 14,
     avatarUrl: 'https://github.com/justsarx.png',
-  });
+  };
 
   const [activeProfileIdx, setActiveProfileIdx] = useState<number>(0);
   const [activeRepoIdx, setActiveRepoIdx] = useState<number>(0);
   const profileCarouselRef = useRef<HTMLDivElement>(null);
   const repoCarouselRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    fetch('https://api.github.com/users/justsarx')
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (data) {
-          setGithubStats({
-            publicRepos: data.public_repos || 18,
-            followers: data.followers || 14,
-            avatarUrl: data.avatar_url || 'https://github.com/justsarx.png',
-          });
-        }
-      })
-      .catch(() => {
-        // Graceful fallback
-      });
-  }, []);
 
   const scrollCarousel = (ref: React.RefObject<HTMLDivElement | null>, direction: 'left' | 'right') => {
     if (!ref.current) return;
