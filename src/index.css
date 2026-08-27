@@ -60,12 +60,6 @@
     transform: translateY(-3px);
   }
 
-  .spotlight-card {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform, opacity, filter;
-  }
-
   /* Safe Scroll Reveals: visible by default so nothing is ever hidden */
   .reveal-on-scroll {
     opacity: 1;

@@ -34,14 +34,13 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   return (
     <div
       ref={divRef}
-      data-anime-card="true"
       onMouseMove={handleMouseMove}
       onFocus={handleFocus}
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        'relative overflow-hidden rounded-3xl transition-all duration-300 spotlight-card will-change-transform',
+        'relative overflow-hidden rounded-3xl transition-all duration-300 spotlight-card',
         className
       )}
       {...props}

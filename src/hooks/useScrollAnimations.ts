@@ -6,14 +6,8 @@ export function useScrollAnimations() {
   const [mousePos, setMousePos] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let isScrollingDown = true;
-
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      isScrollingDown = currentScrollY >= lastScrollY;
-      lastScrollY = currentScrollY;
-
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         setScrollProgress((currentScrollY / totalScroll) * 100);
@@ -28,92 +22,97 @@ export function useScrollAnimations() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     handleScroll();
 
-    // Map to prevent conflicting anime instances on same element
-    const activeAnimations = new WeakMap<Element, anime.AnimeInstance>();
+    // Map to track animation state per element to avoid thrashing
+    const animatedElements = new WeakSet<Element>();
+    const isVisibleMap = new WeakMap<Element, boolean>();
 
-    // IntersectionObserver with punchy dynamic enter/exit anime.js animations
+    // High-performance GPU-only anime.js IntersectionObserver
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const el = entry.target as HTMLElement;
+          const isIntersecting = entry.isIntersecting;
+          const wasVisible = isVisibleMap.get(el);
 
-          // Stop existing animation on this element if running
-          const running = activeAnimations.get(el);
-          if (running) {
+          if (isIntersecting && !wasVisible) {
+            isVisibleMap.set(el, true);
             anime.remove(el);
-          }
 
-          if (entry.isIntersecting) {
-            // ENTER VIEWPORT: Dramatic 3D Spring Lift + Pop-In Scale + Elastic Overshoot
-            el.classList.add('is-visible');
-            const anim = anime({
+            // Compute sibling stagger index for natural wave reveals
+            const parent = el.parentElement;
+            const siblings = parent ? Array.from(parent.children) : [];
+            const siblingIndex = siblings.indexOf(el);
+            const staggerDelay = siblingIndex >= 0 ? Math.min(siblingIndex * 50, 250) : 0;
+
+            anime({
               targets: el,
               opacity: [0, 1],
-              translateY: [60, 0],
-              scale: [0.86, 1],
-              rotateX: [7, 0],
-              filter: ['blur(6px)', 'blur(0px)'],
-              duration: 800,
-              easing: 'easeOutBack',
+              translateY: [36, 0],
+              scale: [0.95, 1],
+              duration: 650,
+              delay: staggerDelay,
+              easing: 'easeOutCubic',
               complete: () => {
-                activeAnimations.delete(el);
-                // Ensure clean inline reset for crisp rendering
-                el.style.filter = '';
-              }
+                animatedElements.add(el);
+              },
             });
-            activeAnimations.set(el, anim);
-          } else {
-            // EXIT VIEWPORT: Dramatic Drop/Ascend + Shrink + Blur Dissolve
-            const bounding = entry.boundingClientRect;
-            const exitingTop = bounding.top < 0;
-            const exitDirection = exitingTop || isScrollingDown ? -50 : 50;
+          } else if (!isIntersecting && wasVisible) {
+            isVisibleMap.set(el, false);
+            anime.remove(el);
 
-            const anim = anime({
+            const bounding = entry.boundingClientRect;
+            const isExitingTop = bounding.top < 0;
+
+            anime({
               targets: el,
-              opacity: [1, 0],
-              translateY: [0, exitDirection],
-              scale: [1, 0.86],
-              rotateX: [0, exitingTop ? -6 : 6],
-              filter: ['blur(0px)', 'blur(8px)'],
-              duration: 480,
-              easing: 'easeInCubic',
-              complete: () => {
-                activeAnimations.delete(el);
-              }
+              opacity: [1, 0.15],
+              translateY: [0, isExitingTop ? -20 : 20],
+              scale: [1, 0.96],
+              duration: 380,
+              easing: 'easeInQuad',
             });
-            activeAnimations.set(el, anim);
           }
         });
       },
-      { 
-        threshold: 0.1, 
-        rootMargin: '0px 0px -30px 0px' 
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -30px 0px',
       }
     );
 
-    const observeElements = () => {
-      const elements = document.querySelectorAll(
-        '[data-anime-card="true"], .reveal-on-scroll, .reveal-stagger > *, .spotlight-card'
-      );
-      elements.forEach((el) => {
-        observer.observe(el);
-      });
-    };
+    const targetElements = document.querySelectorAll(
+      '.reveal-on-scroll, .reveal-stagger > *, .spotlight-card'
+    );
 
-    observeElements();
+    targetElements.forEach((el) => {
+      const htmlEl = el as HTMLElement;
+      // Initialize in waiting state if not in initial viewport
+      const rect = htmlEl.getBoundingClientRect();
+      const isInitiallyVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
-    // Observe dynamically rendered or tab-filtered elements
-    const mutationObserver = new MutationObserver(() => {
-      observeElements();
+      if (isInitiallyVisible) {
+        isVisibleMap.set(htmlEl, true);
+        anime({
+          targets: htmlEl,
+          opacity: [0, 1],
+          translateY: [24, 0],
+          scale: [0.97, 1],
+          duration: 500,
+          easing: 'easeOutCubic',
+        });
+      } else {
+        htmlEl.style.opacity = '0';
+        htmlEl.style.transform = 'translateY(36px) scale(0.95)';
+        isVisibleMap.set(htmlEl, false);
+      }
+
+      observer.observe(htmlEl);
     });
-
-    mutationObserver.observe(document.body, { childList: true, subtree: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       observer.disconnect();
-      mutationObserver.disconnect();
     };
   }, []);
 
