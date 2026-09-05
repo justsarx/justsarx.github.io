@@ -42,6 +42,7 @@ export const PERSONAL_DATA = {
   github: "https://github.com/justsarx",
   linkedin: "https://linkedin.com/in/justsarx/",
   website: "https://justsarx.me",
+  resumePdfUrl: "/SarthakCV.pdf",
   status: "Available for Systems Engineering & Core Software Roles",
   statement: "I engineer low-level Android operating system trees, Linux kernel 5.10 device drivers, client-side WebGPU acceleration, and scalable full-stack backend systems.",
   about: "Systems engineer specializing in AOSP (Android Open Source Project) device trees, Linux Kernel 5.10 LTS driver porting for the Motorola Edge 40 Neo (manaus / MediaTek Dimensity 7030), and on-device WebGPU inference pipelines. Background spans C++, Python, Django REST, and modern reactive interfaces."

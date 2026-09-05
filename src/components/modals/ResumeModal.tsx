@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Download, Copy, Check, ExternalLink, FileText } from 'lucide-react';
-import { PERSONAL_DATA, EXPERIENCES, EDUCATION, PROJECTS, SKILL_GROUPS } from '../../data/portfolioData';
+import { PERSONAL_DATA, EXPERIENCES, EDUCATION, PROJECTS } from '../../data/portfolioData';
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -13,68 +13,12 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
   if (!isOpen) return null;
 
   const handleDownload = () => {
-    const markdownContent = `# ${PERSONAL_DATA.name} — ${PERSONAL_DATA.role}
-Location: ${PERSONAL_DATA.location} (${PERSONAL_DATA.coordinates})
-Email: ${PERSONAL_DATA.email}
-Website: ${PERSONAL_DATA.website} | GitHub: ${PERSONAL_DATA.github} | LinkedIn: ${PERSONAL_DATA.linkedin}
-
----
-
-## PROFESSIONAL SUMMARY
-${PERSONAL_DATA.about}
-
----
-
-## VERIFIED ACHIEVEMENTS & HIGHLIGHTS
-- World-first developer to release functional Android QPR (Quarterly Platform Release) updates for Motorola Edge 40 Neo (manaus / Linux Kernel 5.10 LTS).
-- 8.55 CGPA in Master of Computer Applications (MCA) at Lovely Professional University.
-- Completed intensive Python programming internship at YBI Foundation, delivering all 3 project milestones ahead of schedule.
-
----
-
-## PROFESSIONAL & OPEN-SOURCE EXPERIENCE
-${EXPERIENCES.map(e => `### ${e.role} | ${e.organization} (${e.period})
-Location: ${e.location} • Type: ${e.type}
-${e.highlights.map(h => `- ${h}`).join('\n')}
-Technologies: ${e.technologies.join(', ')}
-`).join('\n')}
-
----
-
-## FEATURED PROJECTS
-${PROJECTS.map(p => `### ${p.title} (${p.category} | ${p.period})
-${p.description}
-Technical Highlights:
-${p.technicalDetails.map(t => `- ${t}`).join('\n')}
-Deliverables: ${p.deliverables.join(', ')}
-Stack: ${p.tags.join(', ')}
-`).join('\n')}
-
----
-
-## ACADEMIC CREDENTIALS
-${EDUCATION.map(edu => `### ${edu.degree}
-${edu.institution} (${edu.period}) | ${edu.grade} • ${edu.location}
-${edu.details ? `${edu.details}` : ''}
-`).join('\n')}
-
----
-
-## TECHNICAL COMPETENCIES
-${SKILL_GROUPS.map(g => `### ${g.group}:
-${g.skills.join(', ')}
-`).join('\n')}
-`;
-
-    const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = url;
-    link.download = `Sarthak_Resume_AOSP_Systems_Engineer.md`;
+    link.href = '/SarthakCV.pdf';
+    link.download = 'SarthakCV.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    URL.revokeObjectURL(url);
   };
 
   const handleCopyText = () => {
@@ -105,18 +49,28 @@ ${g.skills.join(', ')}
           <div className="flex items-center gap-3 font-mono text-xs">
             <button
               onClick={handleCopyText}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-surfaceMuted hover:bg-black/5 dark:hover:bg-white/10 text-black dark:text-slate-300 border border-black/10 dark:border-white/10 transition-colors cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-surfaceMuted hover:bg-black/5 dark:hover:bg-white/10 text-black dark:text-slate-300 border border-black/10 dark:border-white/10 transition-colors cursor-pointer"
             >
               {copied ? <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
               <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
+
+            <a
+              href="/SarthakCV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-surfaceMuted hover:bg-black/5 dark:hover:bg-white/10 text-black dark:text-slate-300 border border-black/10 dark:border-white/10 transition-colors"
+            >
+              <ExternalLink className="h-3.5 w-3.5" />
+              <span>Open PDF</span>
+            </a>
 
             <button
               onClick={handleDownload}
               className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-black text-white dark:bg-white dark:text-black font-semibold hover:opacity-90 transition-all cursor-pointer shadow-xs"
             >
               <Download className="h-3.5 w-3.5" />
-              <span>Download MD</span>
+              <span>Download PDF</span>
             </button>
 
             <button
@@ -140,62 +94,46 @@ ${g.skills.join(', ')}
                 {PERSONAL_DATA.role} • {PERSONAL_DATA.location}
               </p>
             </div>
-
-            <div className="flex flex-wrap gap-2 text-xs font-mono">
-              <a
-                href={PERSONAL_DATA.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surfaceMuted-light dark:bg-surface border border-black/10 dark:border-white/10 text-black dark:text-slate-300 hover:opacity-80 transition-opacity font-medium"
-              >
-                <span>GitHub: @justsarx</span>
-                <ExternalLink className="h-3 w-3" />
-              </a>
-              <a
-                href={PERSONAL_DATA.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surfaceMuted-light dark:bg-surface border border-black/10 dark:border-white/10 text-black dark:text-slate-300 hover:opacity-80 transition-opacity font-medium"
-              >
-                <span>LinkedIn</span>
-                <ExternalLink className="h-3 w-3" />
-              </a>
-              <a
-                href={`mailto:${PERSONAL_DATA.email}`}
-                className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surfaceMuted-light dark:bg-surface border border-black/10 dark:border-white/10 text-black dark:text-slate-300 hover:opacity-80 transition-opacity font-medium"
-              >
-                <span>{PERSONAL_DATA.email}</span>
-              </a>
+            <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-ink-muted dark:text-textMuted">
+              <a href={`mailto:${PERSONAL_DATA.email}`} className="hover:underline">{PERSONAL_DATA.email}</a>
+              <span>•</span>
+              <a href={PERSONAL_DATA.github} target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
+              <span>•</span>
+              <a href={PERSONAL_DATA.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
             </div>
           </div>
 
-          {/* Summary */}
-          <div className="space-y-2">
+          {/* Professional Summary */}
+          <div className="space-y-3">
             <h2 className="text-xs font-mono text-ink-subtle uppercase tracking-wider font-bold">
-              Profile Summary
+              Professional Summary
             </h2>
-            <p className="text-black/80 dark:text-slate-300 leading-relaxed font-sans">
+            <p className="text-black/80 dark:text-slate-300 leading-relaxed">
               {PERSONAL_DATA.about}
             </p>
           </div>
 
           {/* Experience */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <h2 className="text-xs font-mono text-ink-subtle uppercase tracking-wider font-bold">
-              Experience & Roles
+              Engineering Experience
             </h2>
             {EXPERIENCES.map((exp, idx) => (
-              <div key={idx} className="p-4 rounded-xl bg-surfaceMuted-light dark:bg-surface border border-black/5 dark:border-white/5 space-y-2">
-                <div className="flex flex-wrap items-center justify-between text-xs font-mono">
-                  <span className="font-bold text-black dark:text-white text-sm">{exp.role}</span>
-                  <span className="text-emerald-700 dark:text-emerald-400 font-bold">{exp.period}</span>
+              <div key={idx} className="space-y-2 pb-6 border-b border-black/5 dark:border-white/5 last:border-0 last:pb-0">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+                  <span className="font-bold text-black dark:text-white font-display text-base">
+                    {exp.role} — <span className="text-emerald-700 dark:text-emerald-400 font-medium">{exp.organization}</span>
+                  </span>
+                  <span className="text-xs font-mono text-ink-subtle">{exp.period}</span>
                 </div>
-                <div className="text-xs text-ink-muted dark:text-textMuted font-mono">
-                  {exp.organization} • {exp.location}
+                <div className="text-xs font-mono text-ink-muted dark:text-textMuted">
+                  {exp.location} • {exp.type}
                 </div>
-                <ul className="space-y-1 text-xs text-black/80 dark:text-slate-300 list-disc list-inside font-sans">
+                <ul className="list-disc list-inside space-y-1 pt-1 text-black/80 dark:text-slate-300">
                   {exp.highlights.map((item, hIdx) => (
-                    <li key={hIdx}>{item}</li>
+                    <li key={hIdx} className="leading-relaxed">
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </div>
